@@ -3,24 +3,22 @@ from simple_history.models import HistoricalRecords
 from apps.base.validators import phone_regex
 from apps.base.models import BaseModel, PersonMixin, sex_choice, nature_identification_choice, nature_rif_choice
 from apps.ubicaciones.models import Ubicacion
+from django.db.models import Q
 
 class Especialidad(BaseModel):
     
-    name =                  models.CharField(verbose_name='Nombre', max_length=30, )
+    name =                  models.CharField(verbose_name='Nombre', max_length=30, unique=True, )
     description =           models.TextField(verbose_name='Descripcion', null=True, blank=True, )
-    
-    historical =            HistoricalRecords()
-    @property
-    def _history_user(self):
-        return self.changed_by
-    
-    @_history_user.setter
-    def _history_user(self,value):
-        self.changed_by = value
-    
+
     def clean(self) -> None:
-        self.name = self.name.upper()
-        return super(Especialidad, self).clean()
+        self.name = self.name.lower().capitalize()
+        return super().clean()
+    
+    def delete(self, *args, **kwargs):
+        # Verifica si hay la especialidad esta asociada con un medico para evitar su eliminacion.
+        if Medico.objects.filter(tower=self).exists():
+            raise Exception("No puedes eliminar esta torre porque está asociada a una localidad.")
+        super().delete(*args, **kwargs)
     
     class Meta:
         
@@ -33,12 +31,12 @@ class Especialidad(BaseModel):
 
 class Medico(PersonMixin, BaseModel):
     
-    code =                  models.CharField(verbose_name='Codigo', max_length=5, unique=True)
-    identification =        models.CharField(verbose_name='Cédula de identidad', max_length=9, unique=True)
-    identification_nature = models.CharField(verbose_name='Naturaleza de la cedula', max_length=1, choices=nature_identification_choice, default='V')
-    rif =                   models.CharField(verbose_name='RIF', max_length=10, unique=True)
-    identification_rif =    models.CharField(verbose_name='Naturaleza del rif', max_length=1, choices=nature_rif_choice, default='V')
-    sex =                   models.CharField(verbose_name='Sexo',max_length=1, choices=sex_choice, default='M')
+    code =                  models.CharField(verbose_name='Codigo', max_length=5, unique=True, )
+    identification =        models.CharField(verbose_name='Cédula de identidad', max_length=9, unique=True, )
+    identification_nature = models.CharField(verbose_name='Naturaleza de la cedula', max_length=1, choices=nature_identification_choice, default='V', )
+    rif =                   models.CharField(verbose_name='RIF', max_length=10, unique=True, )
+    identification_rif =    models.CharField(verbose_name='Naturaleza del rif', max_length=1, choices=nature_rif_choice, default='V', )
+    sex =                   models.CharField(verbose_name='Sexo',max_length=1, choices=sex_choice, default='M', )
     first_name =            models.CharField(verbose_name='Primer nombre', max_length=20, )
     second_name =           models.CharField(verbose_name='Segundo nombre', max_length=20, null=True, blank=True, )
     last_name =             models.CharField(verbose_name='Primer apellido', max_length=20, )
@@ -48,15 +46,6 @@ class Medico(PersonMixin, BaseModel):
     specialty =             models.ManyToManyField(Especialidad, verbose_name='Especialidad', through='MedicoEspecialidad', )
     location =              models.ManyToManyField(Ubicacion, verbose_name='Ubicacion', through='MedicoUbicacion', )
     
-    historical =            HistoricalRecords()
-    @property
-    def _history_user(self):
-        return self.changed_by
-    
-    @_history_user.setter
-    def _history_user(self,value):
-        self.changed_by = value
-    
     def clean(self) -> None:
         self.first_name = self.first_name.upper()
         self.second_name = '' if not self.second_name else self.second_name.upper()
@@ -65,9 +54,9 @@ class Medico(PersonMixin, BaseModel):
         return super(Medico, self).clean()
     
     class Meta:
+        
         verbose_name='medico'
         verbose_name_plural='medicos'
-    
     
 class MedicoUbicacion(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.RESTRICT, blank=True, null=True, )
