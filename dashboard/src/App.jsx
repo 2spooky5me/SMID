@@ -1,16 +1,27 @@
-import Carnet from '/src/components/Carnet'
-import CarnetEjem from '/src/assets/img/Carnet.jpg'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+//* Layout
+import LayoutAuth from '/src/layouts/LayoutAuth';
+import LayoutAdmin from '/src/layouts/LayoutAdmin';
+//! Pages Auth
+import Login from '/src/pages/auth/Login';
+//! Pages Admin
+import Home from '/src/pages/admin/Home';
+
 
 function App() {
 
   return (
-    <>
-      <div className='flex'>
-        <Carnet />
-        <img src={CarnetEjem} alt="Carnet" className="h-[8.3cm] w-[5.5cm] border print-hidden" />
-      </div >
-    </>
-  )
-}
 
-export default App
+      <BrowserRouter>
+        <Routes>
+          <Route path='/auth' element={<LayoutAuth />}>
+            <Route index element={<Login />} />
+          </Route>
+          <Route path='/' element={<LayoutAdmin />}>
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+  );
+}
+export default App;

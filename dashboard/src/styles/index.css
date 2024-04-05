@@ -30,11 +30,29 @@
 	background-repeat: no-repeat;
 	background-color: 0.25;
 }
-.byeScroll::-webkit-scrollbar {
-	width: 0px;
+.fondo-login-auth {
+	background-image: linear-gradient(
+			40deg,
+			rgb(32, 32, 32),
+			rgba(32, 32, 32, 0.5)
+		),
+		url('/src/assets/img/fondoLogin.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
+
+@media print {
+	.fondo-login-auth-no{
+		background-image: none !important;
+	}
+}
+
 @media print {
 	.print-hidden {
 		display: none;
 	}
+}
+.byeScroll::-webkit-scrollbar {
+	width: 0px;
 }
