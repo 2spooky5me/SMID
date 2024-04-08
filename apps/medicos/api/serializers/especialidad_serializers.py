@@ -5,4 +5,4 @@ class EspecialidadSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Especialidad
-        fields = ('id','name')
+        fields = ('id', 'status', 'name')

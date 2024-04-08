@@ -1,11 +1,9 @@
-from apps.base.api.generic_views import *
-from ..serializers.ubicacion_serializers import *
+from apps.base.api.viewsets.method_mixins import GeneralModelViewSet
+from ..serializers.ubicacion_serializers import UbicacionSerializer
 
-class UbicacionListAPIView(GeneralListAPIView):
-    serializer_class = UbicacionReadOnlySerializer
-
-class UbicacionCreateAPIView(GeneralCreateAPIView):
+class UbicacionViewSet(GeneralModelViewSet):
     serializer_class = UbicacionSerializer
+    queryset = UbicacionSerializer.Meta.model.objects.filter(status=True).order_by('-id')
     
-class UbicacionRetrieveUpdateDestroyAPIView(GeneralRetrieveUpdateDestroyAPIView):
-    serializer_class = UbicacionSerializer
+    # Por si se preguntan donde esta la validacion a traves del create, se encuentra en
+    # la validacion del serializador UbicacionSerializer

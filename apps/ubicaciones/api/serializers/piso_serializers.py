@@ -5,4 +5,4 @@ class PisoSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Piso
-        fields = ('id','name')
+        fields = ('id', 'status', 'name')
