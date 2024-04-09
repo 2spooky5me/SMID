@@ -43,7 +43,7 @@ export const Home = () => {
 	return (
 		<>
 			<div className='flex items-center justify-center min-h-screen gap-12 '>
-				<div className='bg-gradient-to-b from-white to-slate-200 rounded-lg h-[32vh] w-[60vh] print:hidden p-5'>
+				<div className='bg-gradient-to-b from-neutral-100 to-neutral-300 rounded-lg h-[32vh] w-[60vh] print:hidden p-5'>
 					<h1 className='font-bold text-center text-[23px] text-cyan-600'>GENERAR CARNET</h1>
 					<div className='m-5'>
 						<AsyncAutocomplete
