@@ -11,7 +11,6 @@ import Home from '/src/pages/admin/Home';
 function App() {
 
   return (
-
       <BrowserRouter>
         <Routes>
           <Route path='/auth' element={<LayoutAuth />}>

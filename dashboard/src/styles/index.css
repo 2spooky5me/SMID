@@ -1,58 +1,65 @@
-@import '/src/styles/modern-normalize.min.css';
+@import "/src/styles/modern-normalize.min.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-	font-family: 'Montserrat';
-	src:
-		local('Montserrat'),
-		url(/src/assets/fonts/Montserrat.ttf) format('truetype');
+  font-family: "Montserrat";
+  src: local("Montserrat"),
+    url(/src/assets/fonts/Montserrat.ttf) format("truetype");
 }
 ::-webkit-scrollbar {
-	width: 6px;
+  width: 6px;
 }
 ::-webkit-scrollbar-thumb {
-	background: rgba(0, 0, 0, 0.479);
-	border-radius: 100px;
+  background: rgba(0, 0, 0, 0.479);
+  border-radius: 100px;
 }
 * {
-	font-family: Montserrat !important;
+  font-family: Montserrat !important;
 }
 .fondo-login {
-	background-image:
-	linear-gradient(170deg,
-			rgb(255, 255, 255,0.9),
-			rgba(255, 255, 255, 0.7)),
-	url('/src/assets/img/bg-carnet.png');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-color: 0.25;
+  background-image: linear-gradient(
+      170deg,
+      rgb(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.7)
+    ),
+    url("/src/assets/img/bg-carnet.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: 0.25;
 }
 .fondo-login-auth {
-	background-image: linear-gradient(
-			40deg,
-			rgb(32, 32, 32),
-			rgba(32, 32, 32, 0.5)
-		),
-		url('/src/assets/img/fondoLogin.png');
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
+  background-image: linear-gradient(
+      40deg,
+      rgb(32, 32, 32, 0.5),
+      rgba(32, 32, 32, 0.1)
+    ),
+    url("/src/assets/img/fondoLogin.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @media print {
-	.fondo-login-auth-no{
-		background-image: none !important;
-	}
+  .fondo-login-auth-no {
+    background-image: none !important;
+  }
 }
 
 @media print {
-	.print-hidden {
-		display: none;
-	}
+  .print-hidden {
+    display: none;
+  }
 }
 .byeScroll::-webkit-scrollbar {
-	width: 0px;
+  width: 0px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0 0 transparent  inset;
 }
