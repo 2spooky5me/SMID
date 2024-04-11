@@ -1,9 +1,8 @@
 from django.db import models
-from simple_history.models import HistoricalRecords
 from apps.base.validators import phone_regex
 from apps.base.models import BaseModel, PersonMixin, sex_choice, nature_identification_choice, nature_rif_choice
-from apps.ubicaciones.models import Ubicacion
-from django.db.models import Q
+from django.core.exceptions import ValidationError
+from apps.ubicaciones import models as ubicaciones_models
 
 class Especialidad(BaseModel):
     
@@ -11,13 +10,13 @@ class Especialidad(BaseModel):
     description =           models.TextField(verbose_name='Descripcion', null=True, blank=True, )
 
     def clean(self) -> None:
-        self.name = self.name.lower().capitalize()
+        self.name = self.name.title()
         return super().clean()
     
     def delete(self, *args, **kwargs):
         # Verifica si hay la especialidad esta asociada con un medico para evitar su eliminacion.
-        if Medico.objects.filter(tower=self).exists():
-            raise Exception("No puedes eliminar esta torre porque está asociada a una localidad.")
+        if Medico.objects.filter(specialty=self).exists():
+            raise Exception("No puedes eliminar esta especialidad porque está asociada a un medico.")
         super().delete(*args, **kwargs)
     
     class Meta:
@@ -29,6 +28,42 @@ class Especialidad(BaseModel):
         
         return self.name
 
+class Ubicacion(BaseModel):
+    
+    its_cpv =               models.BooleanField(verbose_name='¿La ubicacion es CPV?', null=False, blank=False, )
+    location_cpv =          models.OneToOneField(ubicaciones_models.Localidad, verbose_name='Localidad CPV', null=True, blank=True, on_delete=models.RESTRICT, )
+    location =              models.TextField(verbose_name='Direccion', null=True, blank=True, )
+
+    def clean(self) -> None:
+        
+        self.location = self.location.title()
+        
+        if self.its_cpv:
+            if not self.location_cpv:
+                raise ValidationError("Si la ubicación es CPV, debes proporcionar un valor para 'Localidad CPV'.")
+            if self.location:
+                raise ValidationError("Si la ubicación es CPV, NO debes proporcionar un valor para 'Dirección'.")
+        else:
+            if self.location_cpv:
+                raise ValidationError("Si la ubicación NO es CPV, NO debes proporcionar un valor para 'Localidad CPV'.")
+            if not self.location:
+                raise ValidationError("Si la ubicación NO es CPV, debes proporcionar un valor para 'Dirección'.")
+
+        
+        return super(Ubicacion, self).clean()
+        
+    def __str__(self) -> str:
+        
+        if self.its_cpv:
+            return f'{str(self.location_cpv)} (CPV)'
+        
+        return self.location
+    
+    class Meta:
+        
+        verbose_name='ubicacion'
+        verbose_name_plural='ubicaciones'
+        
 class Medico(PersonMixin, BaseModel):
     
     code =                  models.CharField(verbose_name='Codigo', max_length=5, unique=True, )
@@ -65,7 +100,7 @@ class MedicoUbicacion(models.Model):
     class Meta:
         
         verbose_name='ubicacion del medico'
-        verbose_name_plural='ubicaciones de los medicos'
+        verbose_name_plural='ubicaciones del medico'
     
     def __str__(self):
         return str(self.ubicacion)
@@ -77,7 +112,7 @@ class MedicoEspecialidad(models.Model):
     class Meta:
         
         verbose_name='especialidad del medico'
-        verbose_name_plural='especialidades de los medicos'
+        verbose_name_plural='especialidades del medico'
     
     def __str__(self):
         return str(self.especialidad)
