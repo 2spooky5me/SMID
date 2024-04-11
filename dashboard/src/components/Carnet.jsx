@@ -5,7 +5,7 @@ import DR from '/src/assets/img/default.png'
 const Carnet = () => {
   return (
     <>
-      <div className='h-[8.3cm] w-[5.5cm]'>
+      <div className='h-[8.3cm] w-[5.5cm] bg-white print-view'>
         <div className='bg-header-carnet h-[1.37cm] flex justify-between p-0'>
           <img src={CPV} alt="Logo Cpv" className='h-[55px]' />
           <img src={SM} alt="Logo Sociedad Medica" className='h-[55px]' />
