@@ -85,9 +85,9 @@ export const axiosRequest = {
 			if (error?.response?.status === 401) {
 				axiosRequest.REFRESH(refresh, dispatch, setTokens, navigate);
 			} 
-			// else { //! Comentado para que sólo el refresh reviente xd para q la gente no joda de q se le cierra por peticiones canceladas
-			// 	navigate('/auth/logout/');
-			// }
+			else { //! Comentado para que sólo el refresh reviente xd para q la gente no joda de q se le cierra por peticiones canceladas
+			  navigate('/auth');
+			}
 		});
 	},
 	POST_WITH_REFRESH: async (

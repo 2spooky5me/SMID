@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import CPV from '/src/assets/img/logo-cpv.svg'
 import SM from '/src/assets/img/logo-sm.svg'
 import DR from '/src/assets/img/default.png'

@@ -33,7 +33,7 @@ const Login = () => {
     useEffect(() => {
 		// valida que el token siga activo
         axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
-	}, []);
+	});
 
     const HandleSubmit = e => {
 		//! conexión asíncrona con Axios para login

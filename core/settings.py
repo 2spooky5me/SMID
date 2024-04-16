@@ -98,6 +98,7 @@ INSTALLED_APPS = BASE_APPS + MY_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,9 +130,9 @@ TEMPLATES = [
 JAZZMIN_SETTINGS = {
     "site_title": "SOCIMED",
     "site_brand": "SOCIMED",
-    "site_logo": "../static/logo-white-sm.svg",
-    "login_logo": "../static/logo-dark-sm.svg",
-    "welcome_sign": "Sistema de registro medico.",
+    "site_logo": "../media/logo-white-sm.png",
+    "login_logo": "../media/logo-dark-sm.png",
+    "welcome_sign": "Sistema de directorio sociedad medica.",
     "order_with_respect_to": ["auth", "medicos", "ubicaciones"],
     "icons": {
         "auth.user": "fa fa-user",

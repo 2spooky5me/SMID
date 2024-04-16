@@ -50,7 +50,7 @@ export const Home = () => {
     useEffect(() => {
 		// valida que el token siga activo
         axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
-	}, []);
+	});
 
 	return (
 		<>
