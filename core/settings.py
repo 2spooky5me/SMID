@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from pathlib import Path
 from environ import Env
+from datetime import timedelta
 
 from core.database import get_db_config
 
@@ -48,9 +49,12 @@ SWAGGER_SETTINGS = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.IsAuthenticated',
-        # 'rest_framework.permissions.DjangoModelPermissions'
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -58,6 +62,10 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter'
     ],
 }
+
+SESSION_COOKIE_AGE = 60 * 30
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Application definition
 BASE_APPS = [
@@ -73,7 +81,9 @@ BASE_APPS = [
 THIRD_PARTY_APPS = [
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     'simple_history',
     'drf_yasg',
@@ -116,19 +126,12 @@ TEMPLATES = [
     },
 ]
 
-TOKEN_EXPIRED_AFTER_SECONDS = 60 * 60
-
-SESSION_COOKIE_AGE = 60 * 30
-
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
 JAZZMIN_SETTINGS = {
     "site_title": "SOCIMED",
     "site_brand": "SOCIMED",
     "site_logo": "../static/logo-white-sm.svg",
     "login_logo": "../static/logo-dark-sm.svg",
     "welcome_sign": "Sistema de registro medico.",
-    "hide_apps": ["authtoken"],
     "order_with_respect_to": ["auth", "medicos", "ubicaciones"],
     "icons": {
         "auth.user": "fa fa-user",
@@ -140,6 +143,13 @@ JAZZMIN_SETTINGS = {
         "ubicaciones.piso": "fas fa-arrow-right",
         "ubicaciones.localidad": "fa fa-location-arrow"
     },
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=5),  
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=8),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True
 }
 
 # Database
@@ -180,7 +190,7 @@ TIME_ZONE = 'America/Caracas'
 
 USE_I18N = True
 
-USE_TZ = False
+USE_TZ = True
 
 TIME_INPUT_FORMATS = [
     "%I:%M %p",
@@ -209,6 +219,9 @@ if not DEBUG:
         'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.IsAuthenticated',
             'rest_framework.permissions.DjangoModelPermissions'
+        ),
+        'DEFAULT_AUTHENTICATION_CLASSES:': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication'
         ),
         'DEFAULT_FILTER_BACKENDS': [
             'django_filters.rest_framework.DjangoFilterBackend',

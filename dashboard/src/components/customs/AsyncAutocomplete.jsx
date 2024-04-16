@@ -23,10 +23,10 @@ const AsyncAutocomplete = ({
 	disableClearable,
 	add
 }) => {
-
-	//*HOOKS
+    
+    //*HOOKS
 	const navigate = useNavigate();
-	// //*REDUX
+	//*REDUX
 	const dispatch = useDispatch();
 	const access = useSelector(accessTokenSelector);
 	const refresh = useSelector(refreshTokenSelector);
@@ -39,13 +39,14 @@ const AsyncAutocomplete = ({
 	const [timerId, setTimerID] = useState(undefined);
 	const WAIT_INTERVAL = 1000;
 
+
 	const searchOptions = async val => {
 
 		axiosRequest
-			.GET_WITH_REFRESH(
+			.GET(
 				urlApi + `search=${val || ''}`,
 				access,
-				refresh,
+                refresh,
 				setTokens,
 				dispatch,
 				navigate
@@ -53,7 +54,8 @@ const AsyncAutocomplete = ({
 			.then(response => {
 				//* por ahora si se añade una opcion a traves del parametro add a los datos
 				//* no aparece en la busqueda
-				setData(add ? [...response.data.results, ...add] : response.data.results || response.data.beneficios);
+				// setData(add ? [...response.data.results, ...add] : response.data.results || response.data.beneficios);
+                setData(response.data)
 			})
 			.finally(() => setLoading(false))
 	};

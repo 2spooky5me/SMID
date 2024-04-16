@@ -1,7 +1,6 @@
 from rest_framework import status
 from rest_framework.response import Response
 
-from apps.base.users.api.authentication_mixins import Authentication
 from apps.base.api.viewsets.method_mixins import GeneralModelViewSet
 from ..serializers.torre_serializers import TorreSerializer
 

@@ -49,4 +49,6 @@ class MedicoSerializer(serializers.ModelSerializer):
         data['specialty'] = [specialty_dict.get(pk) for pk in data['specialty']]
         data['location'] = [location_dict.get(pk) for pk in data['location']]
         
+        data['full_name'] = f'{data["first_name"]}, {data["last_name"]}'
+        
         return data  # Devuelve el diccionario 'data' actualizado

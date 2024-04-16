@@ -1,12 +1,12 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
-from apps.base.users.api.authentication_mixins import Authentication
-
-class GeneralModelViewSet(Authentication, viewsets.ModelViewSet):
+class GeneralModelViewSet(viewsets.ModelViewSet):
     # `serializer_class` y `queryset` deben ser definidos en las clases hijas.
     serializer_class = None
     queryset = None
+    permission_classes = (IsAuthenticated, )
     
     def list(self, request):
         """

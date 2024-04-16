@@ -66,7 +66,7 @@ export const axiosRequest = {
 		)
 		.catch(error => {
 			if(error?.response?.status === 401){
-				navigate('/auth/')
+				navigate('/auth')
 			}
 		});
 	},
@@ -119,7 +119,7 @@ export const axiosRequest = {
 		dispatch: Function,
 		setTokens: Function,
 		navigate: Function,
-		body: any
+		body: AnyObj
 	) => {
 		return axiosRequest.PATCH(url, accessToken, body).catch(error => {
 			if (!error?.response) {

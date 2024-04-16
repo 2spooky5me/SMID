@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from django.utils import timezone
 from django.conf import settings
@@ -10,6 +10,8 @@ class ExpiringTokenAuthentication(TokenAuthentication):
     
     def expires_in(self, token):
         time_elapsed = timezone.now() - token.created
+        print(token.created)
+        print(datetime.now())
         return timedelta(seconds=settings.TOKEN_EXPIRED_AFTER_SECONDS) - time_elapsed
     
     def is_token_expired(self, token):
@@ -28,9 +30,11 @@ class ExpiringTokenAuthentication(TokenAuthentication):
         
     def authenticate_credentials(self, key):
         message, token, user = None, None, None
+        
         try:
             token = self.get_model().objects.select_related('user').get(key=key)
             user = token.user
+            
         except self.get_model().DoesNotExist:
             message = 'Token Invalido'
             self.expired = True
