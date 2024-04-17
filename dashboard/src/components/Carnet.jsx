@@ -8,7 +8,7 @@ const Carnet = (props) => {
   return (
     <>
       <div className='h-[8.3cm] w-[5.5cm] bg-white print-view'>
-        <div className='bg-header-carnet h-[1.37cm] flex justify-between p-0'>
+        <div className='bg-header-carnet h-[1.42cm] flex justify-between p-0'>
           <img src={CPV} alt="Logo Cpv" className='h-[55px]' />
           <img src={SM} alt="Logo Sociedad Medica" className='h-[55px]' />
         </div>
@@ -22,7 +22,7 @@ const Carnet = (props) => {
             (<p className=' text-[13px] font-black uppercase'>Dr. {doctor_info.first_name}, {doctor_info.last_name}</p>)
             : (<></>) }
         </div>
-        <div className='bg-cyancpv-500 h-[1.25cm] text-center flex items-center justify-center'>
+        <div className='bg-cyancpv-500 h-[1.20cm] text-center flex items-center justify-center'>
           <p className='inline-block font-black text-white align-middle text-[13px] '>{doctor_info.selected_specialty.toUpperCase()}</p>
         </div>
         <div className='h-[0.37cm] border-b-[1.5px] border-cyancpv-500 text-[10px] font-bold flex justify-between'>
