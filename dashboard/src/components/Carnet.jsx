@@ -4,7 +4,6 @@ import SM from '/src/assets/img/logo-sm.svg'
 import DR from '/src/assets/img/default.png'
 
 const Carnet = ({ doctor }) => {
-  console.log(doctor.specialties[0].name)
   return (
     <>
       <div className='h-[8.3cm] w-[5.5cm] bg-white print-view'>
@@ -24,7 +23,7 @@ const Carnet = ({ doctor }) => {
         </div>
         <div className='bg-cyancpv-500 h-[1.20cm] text-center flex items-center justify-center'>
           <p className='inline-block font-black text-white align-middle text-[13px] uppercase'>
-            {doctor?.specialties[0]?.name}
+            
           </p>
         </div>
         <div className='h-[0.37cm] border-b-[1.5px] border-cyancpv-500 text-[10px] font-bold flex justify-between'>
