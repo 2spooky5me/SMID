@@ -1,4 +1,5 @@
 //? COMPONENTS
+import Navbar from '/src/components/Navbar';
 import Carnet from '/src/components/Carnet'
 import AsyncAutocomplete from '/src/components/customs/AsyncAutocomplete';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -16,13 +17,17 @@ import { axiosRequest } from '../../api/axios';
 
 const initialValues = {
     code: '',
-    rif: '',
-    identification: '',
     first_name: '',
+    second_name: '',
     last_name: '',
-    photo: '',
-    specialtys: [],
-    selected_specialty: ''
+    second_last_name: '',
+    identification: '',
+    identification_nature: '',
+    rif: '',
+    rif_nature: '',
+    photo: null,
+    sex: '',
+    specialties: [],
 };
 
 export const Home = () => {
@@ -47,6 +52,7 @@ export const Home = () => {
         });
     };
 
+
     useEffect(() => {
         // valida que el token siga activo
         axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
@@ -54,6 +60,7 @@ export const Home = () => {
 
     return (
         <>
+            <Navbar />
             <div className='flex items-center justify-center min-h-screen gap-12 print:m-0 print:items-start print:justify-start'>
                 <div className='bg-gradient-to-b from-neutral-100 to-neutral-300 rounded-lg h-[38vh] w-[60vh] print:hidden p-5'>
                     <h1 className='font-bold text-center text-[23px] text-cyan-600'>GENERAR CARNET</h1>
@@ -63,26 +70,9 @@ export const Home = () => {
                             name='doctor'
                             label='Doctor'
                             values={values.doctor_name}
-                            onChange={
-                                (e, newVal) => {
-                                    if (newVal != null) {
-                                        setValues(Val => ({
-                                            ...Val,
-                                            code: newVal.code,
-                                            identification: newVal.identification,
-                                            identification_nature: newVal.identification_nature,
-                                            rif: newVal.rif,
-                                            identification_rif: newVal.identification_rif,
-                                            first_name: newVal.first_name,
-                                            last_name: newVal.last_name,
-                                            photo: newVal.photo,
-                                            specialtys: newVal.specialty
-                                        }))
-                                    } else {
-                                        setValues(initialValues)
-                                    }
-                                }
-                            }
+                            onChange={(e,newVal) => {
+                                setValues(value => ({ ...value,...newVal }));
+                            }}
                             urlApi='medicos/medico/?'
                             ver='full_name'
                         />
@@ -93,8 +83,8 @@ export const Home = () => {
                             name='especialidad'
                             label='Especialidad'
                             value={values.selected_specialty || ''}
-                            disabled={values.specialtys.length == 0 ? true : false}
-                            options={values.specialtys}
+                            disabled={values.specialties.length == 0 ? true : false}
+                            options={values.specialties}
                             getOptionLabel={(option) => option.name ?? option}
                             renderInput={(params) => <TextField {...params} label="Especialidad" />}
                             onChange={
@@ -126,7 +116,7 @@ export const Home = () => {
                     </div>
                 </div>
                 <Carnet
-                    doctor_info={values}
+                    doctor={values}
                 />
             </div>
         </>

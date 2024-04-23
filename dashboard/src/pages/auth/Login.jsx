@@ -3,15 +3,18 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //? ICONS
 import { RiAccountCircleLine, RiLockLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 //? HOOKS
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UseAxios from '/src/hooks/UseAxios';
 //? REDUX
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshTokenSelector, setUser, accessTokenSelector, setTokens } from '../../redux/reducers/UserSlicer';
-import { notify } from '../../api/scripts/notifications';
+import { notify } from '/src/api/scripts/notifications';
 import { axiosRequest } from '../../api/axios'
 //? IMG
 import LogoSM from '/src/assets/img/logo-sm-color.svg'
@@ -30,6 +33,8 @@ const Login = () => {
 	const passwordRef = useRef();
 	const navigate = useNavigate();
 
+	const request = UseAxios()
+	
 	useEffect(() => {
 		// valida que el token siga activo
 		axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
@@ -143,6 +148,7 @@ const Login = () => {
 					</form>
 				</div>
 			</div>
+			<ToastContainer />
 		</>
 	);
 };

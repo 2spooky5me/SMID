@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 
 export const notify = {
 	CONFIG: {
-		position: 'bottom-left',
+		position: 'bottom-center',
 		autoClose: 5000,
 		hideProgressBar: false,
 		closeOnClick: true,
