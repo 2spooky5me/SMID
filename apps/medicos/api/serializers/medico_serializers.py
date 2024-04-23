@@ -25,7 +25,7 @@ class MedicoSerializer(serializers.ModelSerializer):
         fields = (
             'status', 'id', 'code',
             'identification', 'identification_nature',
-            'rif', 'identification_rif',
+            'rif', 'rif_nature',
             'sex', 'first_name',
             'second_name', 'last_name',
             'second_last_name', 'phone',
@@ -49,6 +49,6 @@ class MedicoSerializer(serializers.ModelSerializer):
         data['specialty'] = [specialty_dict.get(pk) for pk in data['specialty']]
         data['location'] = [location_dict.get(pk) for pk in data['location']]
         
-        data['full_name'] = f'{data["first_name"]}, {data["last_name"]}'
+        data['full_name'] = f'{data["last_name"]} {data["second_last_name"]}, {data["first_name"]} {data["second_name"]}'
         
         return data  # Devuelve el diccionario 'data' actualizado
