@@ -66,11 +66,11 @@ class Ubicacion(BaseModel):
         
 class Medico(PersonMixin, BaseModel):
     
-    code =                  models.CharField(verbose_name='Codigo', max_length=5, unique=True, )
+    code =                  models.CharField(verbose_name='Codigo', max_length=5, )
     identification =        models.CharField(verbose_name='Cédula de identidad', max_length=9, unique=True, )
     identification_nature = models.CharField(verbose_name='Naturaleza de la cedula', max_length=1, choices=nature_identification_choice, default='V', )
     rif =                   models.CharField(verbose_name='RIF', max_length=10, unique=True, )
-    identification_rif =    models.CharField(verbose_name='Naturaleza del rif', max_length=1, choices=nature_rif_choice, default='V', )
+    rif_nature =            models.CharField(verbose_name='Naturaleza del rif', max_length=1, choices=nature_rif_choice, default='V', )
     sex =                   models.CharField(verbose_name='Sexo',max_length=1, choices=sex_choice, default='M', )
     first_name =            models.CharField(verbose_name='Primer nombre', max_length=20, )
     second_name =           models.CharField(verbose_name='Segundo nombre', max_length=20, null=True, blank=True, )
@@ -78,7 +78,7 @@ class Medico(PersonMixin, BaseModel):
     second_last_name =      models.CharField(verbose_name='Segundo apellido', max_length=20, null=True, blank=True, )
     phone =                 models.CharField(verbose_name='Numero telefonico', validators=[phone_regex], max_length=17, null=True, blank=True, )
     photo =                 models.ImageField(verbose_name='Foto', upload_to='medicos', blank=True, )
-    specialty =             models.ManyToManyField(Especialidad, verbose_name='Especialidad', through='MedicoEspecialidad', )
+    specialties =           models.ManyToManyField(Especialidad, verbose_name='Especialidad', through='MedicoEspecialidad', )
     location =              models.ManyToManyField(Ubicacion, verbose_name='Ubicacion', through='MedicoUbicacion', )
     
     def clean(self) -> None:

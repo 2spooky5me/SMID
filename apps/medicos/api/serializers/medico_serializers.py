@@ -8,7 +8,7 @@ from apps.medicos.api.serializers.ubicacion_serializers import UbicacionSerializ
 class MedicoSerializer(serializers.ModelSerializer):
     # Campo 'specialty' que hace referencia a las claves primarias de Especialidad
     # Incluye múltiples instancias de Especialidad con status=True
-    specialty = serializers.PrimaryKeyRelatedField(
+    specialties = serializers.PrimaryKeyRelatedField(
         queryset=Especialidad.objects.filter(status=True), 
         many=True  # Permite múltiples especialidades para un médico
     )
@@ -25,11 +25,11 @@ class MedicoSerializer(serializers.ModelSerializer):
         fields = (
             'status', 'id', 'code',
             'identification', 'identification_nature',
-            'rif', 'identification_rif',
+            'rif', 'rif_nature',
             'sex', 'first_name',
             'second_name', 'last_name',
             'second_last_name', 'phone',
-            'photo', 'specialty', 'location'
+            'photo', 'specialties', 'location'
         )  # Campos que se incluirán en la serialización
     
     # Método para personalizar la representación de los datos del modelo Medico
@@ -46,9 +46,9 @@ class MedicoSerializer(serializers.ModelSerializer):
         location_dict = {location.id: UbicacionSerializer(location).data for location in all_locations}
         
         # Reemplaza los identificadores en 'data' con los datos correspondientes de especialidad y ubicación
-        data['specialty'] = [specialty_dict.get(pk) for pk in data['specialty']]
+        data['specialties'] = [specialty_dict.get(pk) for pk in data['specialties']]
         data['location'] = [location_dict.get(pk) for pk in data['location']]
         
-        data['full_name'] = f'{data["first_name"]}, {data["last_name"]}'
+        data['full_name'] = f'{data["last_name"]} {data["second_last_name"]}, {data["first_name"]} {data["second_name"]}'
         
         return data  # Devuelve el diccionario 'data' actualizado
