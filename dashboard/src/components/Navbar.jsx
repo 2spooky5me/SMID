@@ -58,7 +58,7 @@ const Navbar = () => {
 					onClose={handleClose}
 				>
 					<MenuItem
-						onClick={() => window.location.href = import.meta.env.VITE_APP_API_URL + 'admin/'}
+						onClick={() => window.location.href = import.meta.env.VITE_APP_API_URL + '/admin/'}
 						className='navMenuItem'
 					>
 						<MdOutlineAdminPanelSettings className='m-1 text-primary-500' />
