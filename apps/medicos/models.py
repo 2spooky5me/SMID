@@ -66,7 +66,7 @@ class Ubicacion(BaseModel):
         
 class Medico(PersonMixin, BaseModel):
     
-    code =                  models.CharField(verbose_name='Codigo', max_length=5, unique=True, )
+    code =                  models.CharField(verbose_name='Codigo', max_length=5, )
     identification =        models.CharField(verbose_name='Cédula de identidad', max_length=9, unique=True, )
     identification_nature = models.CharField(verbose_name='Naturaleza de la cedula', max_length=1, choices=nature_identification_choice, default='V', )
     rif =                   models.CharField(verbose_name='RIF', max_length=10, unique=True, )
