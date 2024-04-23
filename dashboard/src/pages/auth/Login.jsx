@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 //? ICONS
-import { RiAccountCircleLine, RiLockLine, RiEyeLine, RiEyeOffLine} from 'react-icons/ri';
+import { RiAccountCircleLine, RiLockLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 //? HOOKS
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,23 +19,23 @@ import LogoSM from '/src/assets/img/logo-sm-color.svg'
 const Login = () => {
 	// Dynamic states
 	const [showPassword, setShowPassword] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    //redux States and Hooks
-    const dispatch = useDispatch();
-    const access = useSelector(accessTokenSelector);
-    const refresh = useSelector(refreshTokenSelector);
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	//redux States and Hooks
+	const dispatch = useDispatch();
+	const access = useSelector(accessTokenSelector);
+	const refresh = useSelector(refreshTokenSelector);
 
-    const userRef = useRef();
+	const userRef = useRef();
 	const passwordRef = useRef();
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    useEffect(() => {
+	useEffect(() => {
 		// valida que el token siga activo
-        axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
-	});
+		axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
+	}, [access, dispatch, navigate, refresh]);
 
-    const HandleSubmit = e => {
+	const HandleSubmit = e => {
 		//! conexión asíncrona con Axios para login
 		e.preventDefault();
 		axiosRequest
@@ -67,10 +67,10 @@ const Login = () => {
 								autoComplete='off'
 								id="user_id"
 								placeholder='Usuario'
-                                ref={userRef}
-                                required
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
+								ref={userRef}
+								required
+								value={username}
+								onChange={e => setUsername(e.target.value)}
 								InputProps={{
 									startAdornment: (
 										<InputAdornment position="start">
@@ -88,10 +88,10 @@ const Login = () => {
 								autoComplete='off'
 								id="pass_id"
 								placeholder='Contraseña'
-                                ref={passwordRef}
-                                required
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
+								ref={passwordRef}
+								required
+								value={password}
+								onChange={e => setPassword(e.target.value)}
 								InputProps={{
 									startAdornment: (
 										<InputAdornment position="start">
