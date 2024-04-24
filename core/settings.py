@@ -219,8 +219,8 @@ ADMINS = [
     ("Giancarlo", "programador2@cpv.com.ve"),
     # ("Danny", "programador1@cpv.com.ve"),
 ]
-DEFAULT_FROM_EMAIL = "SINTEG@cpv.com.ve"
-SERVER_EMAIL = "SINTEG@cpv.com.ve"
+DEFAULT_FROM_EMAIL = env.str("EMAIL_ADDRESS")
+SERVER_EMAIL = env.str("EMAIL_ADDRESS")
 EMAIL_HOST = "localhost"
 EMAIL_PORT = 8025
 
@@ -248,5 +248,5 @@ if not DEBUG:
     ("Giancarlo", "programador2@cpv.com.ve"),
     ("Danny", "programador1@cpv.com.ve"),
     ]
-    EMAIL_HOST = os.environ.get("EMAILHOST")
-    EMAIL_PORT = int(os.environ.get("EMAILPORT"))
+    EMAIL_HOST = env.str("EMAIL_SERVER")
+    EMAIL_PORT = env.int("EMAIL_PORT")
