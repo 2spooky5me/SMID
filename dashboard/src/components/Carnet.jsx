@@ -4,7 +4,6 @@ import SM from '/src/assets/img/logo-sm.svg'
 import DR from '/src/assets/img/default.png'
 
 const Carnet = ({ doctor }) => {
-  console.log(doctor.specialties[0].name)
   return (
     <>
       <div className='h-[8.3cm] w-[5.5cm] bg-white print-view'>
