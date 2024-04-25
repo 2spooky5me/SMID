@@ -78,6 +78,8 @@ class Medico(PersonMixin, BaseModel):
     second_last_name =      models.CharField(verbose_name='Segundo apellido', max_length=20, null=True, blank=True, )
     phone =                 models.CharField(verbose_name='Numero telefonico', validators=[phone_regex], max_length=17, null=True, blank=True, )
     photo =                 models.ImageField(verbose_name='Foto', upload_to='medicos', blank=True, )
+    is_actionist =          models.BooleanField(verbose_name="Es accionista", help_text="✅ Es accionista / ❌ No es accionista", default=False)
+    n_actions =             models.IntegerField(verbose_name="Número de acciones", null=True, blank=True, default=None)
     specialties =           models.ManyToManyField(Especialidad, verbose_name='Especialidad', through='MedicoEspecialidad', )
     location =              models.ManyToManyField(Ubicacion, verbose_name='Ubicacion', through='MedicoUbicacion', )
     
