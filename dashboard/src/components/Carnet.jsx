@@ -8,8 +8,8 @@ const Carnet = ({ doctor, specialty }) => {
     <>
       <div className='h-[8.3cm] w-[5.5cm] bg-white print-view'>
         <div className='bg-header-carnet h-[1.42cm] flex justify-between p-0'>
-          <img src={CPV} alt="Logo Cpv" className='h-[55px]' />
-          <img src={SM} alt="Logo Sociedad Medica" className='h-[55px]' />
+          <img src={CPV} alt="Logo Cpv" className='h-[53px] mt-[3px]' />
+          <img src={SM} alt="Logo Sociedad Medica" className='h-[53px] mt-[3px]' />
         </div>
         <div className='fondo-login h-[4.39cm] text-center pt-[1px]'>
           <p className='text-[10px] uppercase text-orangecpv-500 font-bold tracking-wide leading-tight opacity-100'>Centro PoliclÍnico Valencia<br></br>&quot;La Viña&quot;</p>
