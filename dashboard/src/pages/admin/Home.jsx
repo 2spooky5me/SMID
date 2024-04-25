@@ -73,8 +73,8 @@ export const Home = () => {
               values={values.doctor_name}
               disabled={values.specialties.length == 0 ? true : false}
               onChange={(e, newVal) => {
-                setSpecialty([]);
-                setValues(values => ({ ...values, specialties: [] }))
+                setSpecialty([]); // limpia el estado de specialty
+                setValues(values => ({ ...values, specialties: [] })); // limpia el campo specialties en values
                 setValues(value => ({ ...value, ...newVal }));
               }}
               urlApi='medicos/medico/?'
@@ -94,6 +94,7 @@ export const Home = () => {
                   setSpecialty(newValue);
                 }
               }}
+              value={specialty}
               renderInput={(params) => (
                 <TextField
                   {...params}
