@@ -15,7 +15,7 @@ class Especialidad(BaseModel):
     
     def delete(self, *args, **kwargs):
         # Verifica si hay la especialidad esta asociada con un medico para evitar su eliminacion.
-        if Medico.objects.filter(specialty=self).exists():
+        if Medico.objects.filter(specialties=self).exists():
             raise Exception("No puedes eliminar esta especialidad porque está asociada a un medico.")
         super().delete(*args, **kwargs)
     

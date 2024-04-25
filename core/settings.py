@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from pathlib import Path
 from environ import Env
@@ -211,11 +212,22 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# CONFIGURACION DE SERVIDOR DE EMAILS PARA REPORTE DE ERRORES
+
+ADMINS = [
+    # ("Leandro", "programador3@cpv.com.ve"),
+    ("Giancarlo", "programador2@cpv.com.ve"),
+    # ("Danny", "programador1@cpv.com.ve"),
+]
+DEFAULT_FROM_EMAIL = env.str("EMAIL_ADDRESS")
+SERVER_EMAIL = env.str("EMAIL_ADDRESS")
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 8025
+
 if not DEBUG:
     ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
     CORS_ALLOWED_ORIGINS = [f"http://{x}" for x in env.list("PRODUCTION_CORS_ALLOWED")]
     CORS_ORIGIN_WHITELIST = CORS_ALLOWED_ORIGINS
-    
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.IsAuthenticated',
@@ -230,3 +242,11 @@ if not DEBUG:
             'rest_framework.filters.OrderingFilter'
         ]
     }
+    # Servidor SMTP para envío de correos
+    ADMINS = [
+    ("Leandro", "programador3@cpv.com.ve"),
+    ("Giancarlo", "programador2@cpv.com.ve"),
+    ("Danny", "programador1@cpv.com.ve"),
+    ]
+    EMAIL_HOST = env.str("EMAIL_SERVER")
+    EMAIL_PORT = env.int("EMAIL_PORT")
