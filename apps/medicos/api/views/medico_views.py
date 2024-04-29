@@ -16,7 +16,7 @@ class MedicoViewSet(GeneralModelViewSet):
     search_fields = [
         'code', 'rif', 'identification', 
         'first_name', 'second_name', 'last_name',
-        'second_last_name', 'specialty__name',
+        'second_last_name', 'specialties__name',
         'location__location_cpv__tower__name',
         'location__location_cpv__floor__name',
         'location__location'
