@@ -21,7 +21,8 @@ const Carnet = ({ doctor, specialty }) => {
             (<p className=' text-[13px] font-black capitalize'>{doctor?.sex === 'F' ? 'Dra.' : 'Dr.'} {doctor?.first_name} {doctor?.last_name}</p>)
             : (<></>)}
         </div>
-        <div className='bg-cyancpv-500 h-[1.20cm] text-center flex items-center justify-center'>
+        <div
+          className={`${doctor?.is_actionist ? 'bg-cyancpv-500' : 'bg-orange-500'} h-[1.20cm] text-center flex items-center justify-center`}>
           <p className='inline-block font-black text-white align-middle text-[13px] uppercase'>
             {specialty.map((item) => (
               <p key={item.id}>{item.name}</p>
