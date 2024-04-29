@@ -18,6 +18,8 @@ class MedicoUbicacionInline(admin.TabularInline):
     
 class MedicoAdmin(admin.ModelAdmin):
     inlines = [MedicoEspecialidadInline, MedicoUbicacionInline]
+    search_fields = ("code", "identification", "first_name", "last_name")
+    ordering = ["last_name"]
     
 admin.site.register(Medico, MedicoAdmin)
 admin.site.register(Especialidad, EspecialidadAdmin)
