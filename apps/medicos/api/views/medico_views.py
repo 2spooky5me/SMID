@@ -12,7 +12,7 @@ class MedicoViewSet(GeneralModelViewSet):
     ViewSet para la gestión de medicos.
     """
     serializer_class = MedicoSerializer
-    queryset = MedicoSerializer.Meta.model.objects.all().order_by('-id')
+    queryset = MedicoSerializer.Meta.model.objects.all().order_by('last_name')
     search_fields = [
         'code', 'rif', 'identification', 
         'first_name', 'second_name', 'last_name',

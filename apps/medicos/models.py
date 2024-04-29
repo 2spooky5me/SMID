@@ -10,7 +10,7 @@ class Especialidad(BaseModel):
     description =           models.TextField(verbose_name='Descripcion', null=True, blank=True, )
 
     def clean(self) -> None:
-        self.name = self.name.title()
+        self.name = self.name.upper()
         return super().clean()
     
     def delete(self, *args, **kwargs):
@@ -36,7 +36,7 @@ class Ubicacion(BaseModel):
 
     def clean(self) -> None:
         
-        self.location = self.location.title()
+        self.location = self.location.upper()
         
         if self.its_cpv:
             if not self.location_cpv:

@@ -134,6 +134,18 @@ JAZZMIN_SETTINGS = {
         "ubicaciones.piso": "fas fa-arrow-right",
         "ubicaciones.localidad": "fa fa-location-arrow"
     },
+    "topmenu_links": [
+        {
+            "name": "Inicio",
+            "url": "admin:index",
+            "permissions": ["auth.view_user"]
+        },
+        {
+            "name": "Generar Carnet",
+            "url": "http://socimed.cpv.com.ve/",
+            "permissions": ["auth.view_user"]
+        },
+    ],
 }
 
 SIMPLE_JWT = {
