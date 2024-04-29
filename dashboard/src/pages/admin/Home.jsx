@@ -28,6 +28,7 @@ const initialValues = {
   photo: null,
   sex: '',
   specialties: [],
+  is_actionist: null,
 };
 
 export const Home = () => {
