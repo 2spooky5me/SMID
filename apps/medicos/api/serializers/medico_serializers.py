@@ -29,7 +29,8 @@ class MedicoSerializer(serializers.ModelSerializer):
             'sex', 'first_name',
             'second_name', 'last_name',
             'second_last_name', 'phone',
-            'photo', 'specialties', 'location'
+            'photo', 'specialties', 'location',
+            "is_actionist", "n_actions"
         )  # Campos que se incluirán en la serialización
     
     # Método para personalizar la representación de los datos del modelo Medico

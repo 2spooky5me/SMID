@@ -3,13 +3,13 @@ import CPV from '/src/assets/img/logo-cpv.svg'
 import SM from '/src/assets/img/logo-sm.svg'
 import DR from '/src/assets/img/default.png'
 
-const Carnet = ({ doctor }) => {
+const Carnet = ({ doctor, specialty }) => {
   return (
     <>
       <div className='h-[8.3cm] w-[5.5cm] bg-white print-view'>
         <div className='bg-header-carnet h-[1.42cm] flex justify-between p-0'>
-          <img src={CPV} alt="Logo Cpv" className='h-[55px]' />
-          <img src={SM} alt="Logo Sociedad Medica" className='h-[55px]' />
+          <img src={CPV} alt="Logo Cpv" className='h-[53px] mt-[3px]' />
+          <img src={SM} alt="Logo Sociedad Medica" className='h-[53px] mt-[3px]' />
         </div>
         <div className='fondo-login h-[4.39cm] text-center pt-[1px]'>
           <p className='text-[10px] uppercase text-orangecpv-500 font-bold tracking-wide leading-tight opacity-100'>Centro PoliclÍnico Valencia<br></br>&quot;La Viña&quot;</p>
@@ -23,7 +23,9 @@ const Carnet = ({ doctor }) => {
         </div>
         <div className='bg-cyancpv-500 h-[1.20cm] text-center flex items-center justify-center'>
           <p className='inline-block font-black text-white align-middle text-[13px] uppercase'>
-            {doctor?.specialties[0]?.name}
+            {specialty.map((item) => (
+              <p key={item.id}>{item.name}</p>
+            ))}
           </p>
         </div>
         <div className='h-[0.37cm] border-b-[1.5px] border-cyancpv-500 text-[10px] font-bold flex justify-between'>
