@@ -75,7 +75,7 @@ export const Home = () => {
               disabled={values.specialties.length == 0 ? true : false}
               onChange={(e, newVal) => {
                 setSpecialty([]); // limpia el estado de specialty
-                setValues(values => ({ ...values, specialties: [] })); // limpia el campo specialties en values
+                setValues(values => ({ ...values, ...initialValues })); // limpia el campo specialties en values
                 setValues(value => ({ ...value, ...newVal }));
               }}
               urlApi='medicos/medico/?'
@@ -111,6 +111,7 @@ export const Home = () => {
               variant='contained'
               color='primary'
               className='w-full'
+              disabled={specialty.length > 0 ? false : true}
               startIcon={<BiPrinter />}>
               Imprimir
             </Button>
