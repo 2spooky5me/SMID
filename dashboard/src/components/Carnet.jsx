@@ -2,6 +2,7 @@
 import CPV from '/src/assets/img/logo-cpv.svg'
 import SM from '/src/assets/img/logo-sm.svg'
 import DR from '/src/assets/img/default.png'
+import PanZoom from "react-easy-panzoom";
 
 const Carnet = ({ doctor, specialty }) => {
   return (
@@ -14,8 +15,10 @@ const Carnet = ({ doctor, specialty }) => {
         <div className='fondo-login h-[4.39cm] text-center pt-[1px]'>
           <p className='text-[10px] uppercase text-orangecpv-500 font-bold tracking-wide leading-tight opacity-100'>Centro PoliclÍnico Valencia<br></br>&quot;La Viña&quot;</p>
           <p className='uppercase text-[7px] font-bold text-cyancpv-500'>rif: j-07505586-1</p>
-          <div className='flex justify-center mb-1'>
-            <img src={doctor?.photo ? doctor?.photo : DR} alt='Doctor' className=' h-[2.8cm] w-[2.5cm] border-2 border-orangecpv-500' />
+          <div className='flex justify-center '>
+            <PanZoom className='border border-red-500 mb-1 h-[2.7cm] w-[3cm] m-auto print:border-none bg-cuadricula cuadricula print:bg-none bg-center bg-current'>
+              <img src={doctor?.photo ? doctor?.photo : DR} alt='Doctor' className='flex justify-center m-auto h-[2.7cm] border-2 border-orangecpv-500' />
+            </PanZoom>
           </div>
           {doctor?.first_name ?
             (<p className=' text-[13px] font-black capitalize'>{doctor?.sex === 'F' ? 'Dra.' : 'Dr.'} {doctor?.first_name} {doctor?.last_name}</p>)
