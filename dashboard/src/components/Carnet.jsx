@@ -36,7 +36,7 @@ const Carnet = ({ doctor, specialty }) => {
           <div className='leading-[9px] text-cyancpv-500 text-[8px] mt-1 ml-2'>
             <p>Asociación civil de la </p>
             <p className='font-extrabold text-[10px]'>sociedad médica</p>
-            <p>rif: j-12345678-9</p>
+            <p>rif: j-31688014-1</p>
           </div>
           <div className='text-orangecpv-500 text-[7px] mr-2 mt-1 leading-[9px] text-center'>
             <p>código:</p>
