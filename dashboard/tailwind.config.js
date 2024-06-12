@@ -8,6 +8,7 @@ export default {
     extend: {
       backgroundImage: {
         'header-carnet': "url('/src/assets/img/bg-header.svg')",
+        'cuadricula': "url('/src/assets/img/cuadricula.jpg')",
       },
       colors: {
         orangecpv: {

@@ -58,3 +58,11 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: black;
   -webkit-box-shadow: 0 0 0 0 transparent inset;
 }
+
+.cuadricula {
+  background-color: transparent;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: 0.25;
+}
