@@ -6,45 +6,46 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //? ICONS
-import { RiAccountCircleLine, RiLockLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
+import { RiAccountCircleLine, RiLockLine, RiEyeLine, RiEyeOffLine, RiLoader4Fill } from 'react-icons/ri';
 //? HOOKS
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UseAxios from '/src/hooks/UseAxios';
 //? REDUX
-import { useDispatch, useSelector } from 'react-redux';
-import { refreshTokenSelector, setUser, accessTokenSelector, setTokens } from '../../redux/reducers/UserSlicer';
+import { useDispatch } from 'react-redux';
+import { setUser, unSetUser } from '../../redux/reducers/UserSlicer';
 import { notify } from '/src/api/scripts/notifications';
-import { axiosRequest } from '../../api/axios'
+import { AxiosInstance } from '../../api/axios'
 //? IMG
 import LogoSM from '/src/assets/img/logo-sm-color.svg'
 
 const Login = () => {
 	// Dynamic states
 	const [showPassword, setShowPassword] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	//redux States and Hooks
 	const dispatch = useDispatch();
-	const access = useSelector(accessTokenSelector);
-	const refresh = useSelector(refreshTokenSelector);
+	// const access = useSelector(accessTokenSelector);
+	// const refresh = useSelector(refreshTokenSelector);
 
 	const userRef = useRef();
 	const passwordRef = useRef();
 	const navigate = useNavigate();
-
-	const request = UseAxios()
 	
+	// useEffect(() => {
+	// 	// valida que el token siga activo
+	// 	axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
+	// }, [access, dispatch, navigate, refresh]);
 	useEffect(() => {
-		// valida que el token siga activo
-		axiosRequest.VERIFY(access, refresh, dispatch, setTokens, navigate);
-	}, [access, dispatch, navigate, refresh]);
+		dispatch(unSetUser())
+	}, [dispatch])
 
 	const HandleSubmit = e => {
 		//! conexión asíncrona con Axios para login
 		e.preventDefault();
-		axiosRequest
-			.POST('login/', undefined, { username, password })
+		setIsLoading(true)
+		AxiosInstance.post('login/', {username, password})
 			.then(response => {
 				dispatch(setUser(response.data));
 				navigate('/');
@@ -56,7 +57,9 @@ const Login = () => {
 					notify.ERROR(error.response.data.error);
 				}
 				passwordRef.current.focus();
-			});
+			})
+			.finally(() => setIsLoading(false))
+		
 	};
 
 	return (
@@ -139,10 +142,13 @@ const Login = () => {
 								type='submit'
 								color='primary'
 								variant='contained'
+								disabled={isLoading}
 								size='large'
 								className='w-full text-sm font-bold uppercase rounded-lg bg-gradient-to-l from-orangecpv-500 to-orangecpv-600 dark:from-orangecpv-500 dark:to-orangecpv-600 hover:bg-gradient-to-r text-default disabled:opacity-40 disabled:from-light-400 disabled:to-light-500'
 							>
-								Ingresar
+								{
+									isLoading ? <RiLoader4Fill className='text-2xl text-center animate-spin' /> : "Ingresar"
+								}
 							</Button>
 						</div>
 					</form>
