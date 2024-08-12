@@ -2,9 +2,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import filters
 #from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 
 from apps.base.api.viewsets.method_mixins import GeneralModelViewSet
+from apps.medicos.models import Ubicacion
 from ..serializers.medico_serializers import MedicoSerializer
 
 class MedicoViewSet(GeneralModelViewSet):
@@ -12,7 +13,15 @@ class MedicoViewSet(GeneralModelViewSet):
     ViewSet para la gestión de medicos.
     """
     serializer_class = MedicoSerializer
-    queryset = MedicoSerializer.Meta.model.objects.all().order_by('last_name')
+    queryset = MedicoSerializer.Meta.model.objects.all().order_by('last_name')\
+        .prefetch_related(
+            "specialties", 
+            # "location__medicos_ubicacion__ubicacion__location_cpv__tower",
+            # "location__medicos_ubicacion__ubicacion__location_cpv__floor",
+            Prefetch("location", Ubicacion.objects.select_related("location_cpv__tower", "location_cpv__floor"))
+            )\
+        .select_related("changed_by")
+    
     search_fields = [
         'code', 'rif', 'identification', 
         'first_name', 'second_name', 'last_name',
@@ -21,6 +30,8 @@ class MedicoViewSet(GeneralModelViewSet):
         'location__location_cpv__floor__name',
         'location__location'
         ]
+    
+    
     
     def create(self, request, *args, **kwargs):
         """

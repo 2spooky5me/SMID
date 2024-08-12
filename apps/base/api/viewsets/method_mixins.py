@@ -1,12 +1,16 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from django.db.models import QuerySet
+# from rest_framework.permissions import IsAuthenticated
+
+
+
 
 class GeneralModelViewSet(viewsets.ModelViewSet):
     # `serializer_class` y `queryset` deben ser definidos en las clases hijas.
     serializer_class = None
     queryset = None
-    permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     
     def list(self, request):
         """
@@ -22,7 +26,7 @@ class GeneralModelViewSet(viewsets.ModelViewSet):
         Returns:
             Response: Una respuesta HTTP con datos serializados de instancias activas.
         """
-        queryset = self.filter_queryset(self.get_queryset().filter(status=True))
+        queryset = self.filter_queryset(self.get_queryset())
 
         page = self.paginate_queryset(queryset)
         if page is not None:

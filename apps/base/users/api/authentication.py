@@ -10,8 +10,6 @@ class ExpiringTokenAuthentication(TokenAuthentication):
     
     def expires_in(self, token):
         time_elapsed = timezone.now() - token.created
-        print(token.created)
-        print(datetime.now())
         return timedelta(seconds=settings.TOKEN_EXPIRED_AFTER_SECONDS) - time_elapsed
     
     def is_token_expired(self, token):

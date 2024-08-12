@@ -51,7 +51,7 @@ class UbicacionSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
     
     # Método para personalizar la representación de los datos del modelo Ubicacion
-    def to_representation(self, instance):
+    def to_representation(self, instance:Ubicacion):
         # Llama al método to_representation del padre para obtener el diccionario inicial
         data = super().to_representation(instance)
         
@@ -59,8 +59,7 @@ class UbicacionSerializer(serializers.ModelSerializer):
         if data['its_cpv']:
             # Serializa la localidad relacionada y la añade al diccionario 'data'
             location_cpv_serializer = LocalidadSerializer(
-                Localidad.objects.filter(status=True, id=data['location_cpv'])
-                .first()  # Obtiene la primera instancia que coincide
+                instance.location_cpv  # Obtiene la primera instancia que coincide
             )
             
             # Devuelve un diccionario personalizado para 'its_cpv' verdadero

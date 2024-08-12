@@ -39,11 +39,11 @@ SWAGGER_SETTINGS = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAdminUser',
+        # 'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -76,6 +76,7 @@ THIRD_PARTY_APPS = [
     'django_filters',
     'simple_history',
     'drf_yasg',
+    'debug_toolbar'
 ]
 
 MY_APPS = [
@@ -92,6 +93,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -163,6 +165,10 @@ DATABASES = {
     }
 }
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Password validation
@@ -229,20 +235,20 @@ if not DEBUG:
     ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
     CORS_ALLOWED_ORIGINS = [f"http://{x}" for x in env.list("PRODUCTION_CORS_ALLOWED")]
     CORS_ORIGIN_WHITELIST = CORS_ALLOWED_ORIGINS
-    # REST_FRAMEWORK = {
-    #     'DEFAULT_PERMISSION_CLASSES': (
-    #         'rest_framework.permissions.IsAdminUser',
-    #         'rest_framework.permissions.IsAuthenticated',
-    #     ),
-    #     'DEFAULT_AUTHENTICATION_CLASSES': [
-    #         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    #     ],
-    #     'DEFAULT_FILTER_BACKENDS': [
-    #         'django_filters.rest_framework.DjangoFilterBackend',
-    #         'rest_framework.filters.SearchFilter',
-    #         'rest_framework.filters.OrderingFilter',
-    #     ]
-    # }
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAdminUser',
+            'rest_framework.permissions.IsAuthenticated',
+        ],
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+        'DEFAULT_FILTER_BACKENDS': [
+            'django_filters.rest_framework.DjangoFilterBackend',
+            'rest_framework.filters.SearchFilter',
+            'rest_framework.filters.OrderingFilter'
+        ],
+    }
     # Servidor SMTP para envío de correos
     ADMINS = [
     ("Leandro", "programador3@cpv.com.ve"),
